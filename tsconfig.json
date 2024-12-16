@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES6",                // Target modern JavaScript (ES6+)
+    "module": "commonjs",           // Use CommonJS modules (default for Node.js)
+    "rootDir": "./",             // Source directory
+    "outDir": "./dist",             // Output directory
+    "esModuleInterop": true,        // Allow import/export compatibility
+    "allowSyntheticDefaultImports": true, // Allow default imports from modules
+    "strict": true                  // Enable strict type checking
+  }
+}
