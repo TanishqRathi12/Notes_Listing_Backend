@@ -1,6 +1,6 @@
 const dotenv = require("dotenv");
 const {createToken} = require("./Auth.Controller");
-const Author = require("../models/User.ts");
+const Author = require("../models/Auth.ts");
 import { Request, Response } from "express";
 const speakeasy = require("speakeasy");
 const nodeMailer = require("nodemailer");
