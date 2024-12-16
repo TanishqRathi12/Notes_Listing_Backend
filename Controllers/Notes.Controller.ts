@@ -5,7 +5,7 @@ interface CustomRequest extends Request {
   user?: any;
 }
 
-export const fetchUser = async (req: CustomRequest, res: Response) => {
+const fetchUser = async (req: CustomRequest, res: Response) => {
   return req.user;
 };
 
