@@ -1,4 +1,4 @@
-const Notes = require("../Models/User");
+const Notes = require("../Models/User.ts");
 import { Request, Response } from "express";
 
 interface CustomRequest extends Request {
