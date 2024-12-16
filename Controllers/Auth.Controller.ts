@@ -1,4 +1,4 @@
-const Author = require("../models/Auth.ts");
+const Author = require("../models/Auth");
 import { Request, Response } from "express";
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");

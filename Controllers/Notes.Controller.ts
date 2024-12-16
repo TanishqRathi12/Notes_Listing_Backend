@@ -1,4 +1,4 @@
-const Notes = require("../Models/Auth.ts");
+const Notes = require("../models/Auth");
 import { Request, Response } from "express";
 
 interface CustomRequest extends Request {
