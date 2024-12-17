@@ -1,6 +1,8 @@
 import { Router } from "express";
 const verifyToken = require('../Middleware/Auth.middleware')
-const { addNotesToStudent, getNotesOfStudent, deleteNote } = require('../Controllers/Notes.Controller');
+import { addNotesToStudent } from "../Controllers/Notes.Controller";
+import { getNotesOfStudent } from "../Controllers/Notes.Controller";
+import { deleteNote } from "../Controllers/Notes.Controller";
 
 const NotesRouter = Router();
 

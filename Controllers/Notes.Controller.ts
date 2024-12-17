@@ -1,15 +1,15 @@
-const Author = require("../Models/Auth");
+const Notes = require("../Models/Auth");
 import { Request, Response } from "express";
 
 interface CustomRequest extends Request {
   user?: any;
 }
 
-const fetchUser = async (req: CustomRequest, res: Response) => {
+export const fetchUser = async (req: CustomRequest, res: Response) => {
   return req.user;
 };
 
-export const addAuthorToStudent = async (req: Request, res: Response) => {
+export const addNotesToStudent = async (req: Request, res: Response) => {
     const { note } = req.body;
     const studentId = await fetchUser(req, res); 
   
@@ -17,19 +17,19 @@ export const addAuthorToStudent = async (req: Request, res: Response) => {
       if (!studentId || !note) {
         return res.status(400).send("Student ID and note are required");
       }
-      const student = await Author.findOne({ _id: studentId });
+      const student = await Notes.findOne({ _id: studentId });
   
       if (!student) {
         return res.status(404).send("Student not found");
       }
   
-      if (student.Author.includes(note)) {
+      if (student.notes.includes(note)) {
         return res.status(400).send("This note already exists for the student");
       }
   
-      student.Author.push(note);
+      student.notes.push(note);
       await student.save();
-      return res.status(200).json({ message: "Note added successfully", Author: student.Author });
+      return res.status(200).json({ message: "Note added successfully", notes: student.notes });
     } catch (err) {
       console.error(err);
       return res.status(500).send("Server error");
@@ -37,7 +37,7 @@ export const addAuthorToStudent = async (req: Request, res: Response) => {
   };
   
 
-export const getAuthorOfStudent = async (req: Request, res: Response) => {
+export const getNotesOfStudent = async (req: Request, res: Response) => {
   const studentId = await fetchUser(req, res);
 
   try {
@@ -45,7 +45,7 @@ export const getAuthorOfStudent = async (req: Request, res: Response) => {
       return res.status(400).send("Student ID is required");
     }
 
-    const student = await Author.findOne({ _id: studentId });
+    const student = await Notes.findOne({ _id: studentId });
 
     if (!student) {
       return res.status(404).send("Student not found");
@@ -53,7 +53,7 @@ export const getAuthorOfStudent = async (req: Request, res: Response) => {
 
     return res
       .status(200)
-      .json({ Author: student.Author, name: student.name, email: student.email });
+      .json({ notes: student.notes, name: student.name, email: student.email });
   } catch (err) {
     return res.status(500).send("Server error");
   }
@@ -68,17 +68,17 @@ export const deleteNote = async (req: Request, res: Response) => {
       return res.status(400).send("Student ID and Note ID are required");
     }
 
-    const student = await Author.findOne({ _id: studentId });
+    const student = await Notes.findOne({ _id: studentId });
 
     if (!student) {
       return res.status(404).send("Student not found");
     }
 
-    const updatedAuthor = student.Author.filter((existingNote: string) => existingNote !== note);
+    const updatedNotes = student.notes.filter((existingNote: string) => existingNote !== note);
 
-    const updatedStudent = await Author.findOneAndUpdate(
+    const updatedStudent = await Notes.findOneAndUpdate(
       { _id: studentId },
-      { Author: updatedAuthor },
+      { notes: updatedNotes },
       { new: true }
     );
 
